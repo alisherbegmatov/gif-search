@@ -4,17 +4,18 @@ const { engine } = require('express-handlebars');
 const fetch = require('node-fetch');
 const app = express();
 
+app.use(express.static('public'));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set("views", "./views");    
 
 app.get('/', 
   (req, res) => {
-    let term = "";
+    let term = "Raccoon";
     if (req.query.term) {
       term = req.query.term
     }
-    fetch(`https://g.tenor.com/v1/search?q=${term}&key=${process.env.API_KEY}&limit=10`)
+    fetch(`https://g.tenor.com/v1/search?q=${term}&key=${process.env.API_KEY}&limit=12`)
     .then(response => response.json())
     .then(
       (data) => {
